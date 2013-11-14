@@ -115,11 +115,17 @@
                 return;
             }
             target = options.scripts[loadedScripts.length];
-            if (window._gaq !== undefined && options.hasOwnProperty("trackEvent") === true && options.trackEvent !== false) {
+         // Track event.
+            if (options.hasOwnProperty("trackEvent") === true && options.trackEvent !== false) {
                 trackEvent = {};
                 trackEvent.category = options.trackEvent.category || "Module";
                 trackEvent.action = options.trackEvent.action || "API";
-                _gaq.push(["_trackEvent", trackEvent.category, trackEvent.action, target]);
+             // Support both Universal Analytics and Classic Analytics.
+                if (window.ga !== undefined) {
+                    ga("send", "event", trackEvent.category, trackEvent.action, target);
+                } else if (window._gaq !== undefined) {
+                    _gaq.push(["_trackEvent", trackEvent.category, trackEvent.action, target]);
+                }
             }
             head = document.head;
             script = document.createElement("script");
