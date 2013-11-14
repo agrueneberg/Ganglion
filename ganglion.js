@@ -115,7 +115,7 @@
                 return;
             }
             target = options.scripts[loadedScripts.length];
-            if (_gaq !== undefined && options.hasOwnProperty("trackEvent") === true && options.trackEvent !== false) {
+            if (window._gaq !== undefined && options.hasOwnProperty("trackEvent") === true && options.trackEvent !== false) {
                 trackEvent = {};
                 trackEvent.category = options.trackEvent.category || "Module";
                 trackEvent.action = options.trackEvent.action || "API";
